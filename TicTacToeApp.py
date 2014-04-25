@@ -36,5 +36,26 @@ class TicTacToeGrid(GridLayout):
             cell.text = 'X'
             cell.background_colour = (1, 1, 1, 1)
 
+    def on_pressed_cells(self, instance, new_value):
+        pressed_cells = new_value
+
+        sums = [sum(pressed_cells[0:3]),  # Rows
+                sum(pressed_cells[3:6]),
+                sum(pressed_cells[6:9]),
+                sum(pressed_cells[0::3]),  # Columns
+                sum(pressed_cells[1::3]),
+                sum(pressed_cells[2::3]),
+                sum(pressed_cells[::4]),  # Diagonals
+                sum(pressed_cells[2:-2:2])]
+
+        win = None
+        if 3 in sums:
+            win = 'You win'
+        elif -3 in sums:
+            win = 'You lose'
+        elif 0 not in pressed_cells:
+            win = 'It''s a draw'
+
+
 if __name__ == "__main__":
     TicTacToeApp().run()

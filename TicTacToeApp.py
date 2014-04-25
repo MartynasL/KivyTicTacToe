@@ -1,6 +1,8 @@
 from kivy.app import App
 from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
+from kivy.uix.label import Label
+from kivy.uix.popup import Popup
 from kivy.properties import ListProperty
 
 
@@ -55,6 +57,21 @@ class TicTacToeGrid(GridLayout):
             win = 'You lose'
         elif 0 not in pressed_cells:
             win = 'It''s a draw'
+
+        if win:
+            popup = Popup(title='End of the game',
+                          content=Label(text=win),
+                          size_hint=(0.5, 0.75))
+            popup.bind(on_dismiss=self.reset)
+            popup.open()
+
+    def reset(self):
+        self.pressed_cells = [0, 0, 0,
+                              0, 0, 0,
+                              0, 0, 0]
+
+        for cell in self.children:
+            cell.text = ''
 
 
 if __name__ == "__main__":

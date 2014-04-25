@@ -17,8 +17,8 @@ class TicTacToeApp(App):
 
 class TicTacToeGrid(GridLayout):
     pressed_cells = ListProperty([0, 0, 0,
-                                 0, 0, 0,
-                                 0, 0, 0])
+                                  0, 0, 0,
+                                  0, 0, 0])
 
     def __init__(self, *args, **kwargs):
         super(TicTacToeGrid, self).__init__(*args, **kwargs)
@@ -64,7 +64,7 @@ class TicTacToeGrid(GridLayout):
             popup.bind(on_dismiss=self.reset)
             popup.open()
 
-    def reset(self):
+    def reset(self, *args):
         self.pressed_cells = [0, 0, 0,
                               0, 0, 0,
                               0, 0, 0]

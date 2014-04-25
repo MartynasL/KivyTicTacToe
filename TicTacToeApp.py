@@ -19,7 +19,11 @@ class TicTacToeGrid(GridLayout):
         for column in range(3):
             for row in range(3):
                 cell = TicTacToeCell(coordinates=(column, row))
+                cell.bind(on_release=self.cell_pressed)
                 self.add_widget(cell)
+
+    def cell_pressed(self, cell):
+        pass
 
 if __name__ == "__main__":
     TicTacToeApp().run()

@@ -14,6 +14,10 @@ class TicTacToeApp(App):
 
 
 class TicTacToeGrid(GridLayout):
+    pressed_cells = ListProperty[0, 0, 0,
+                                 0, 0, 0,
+                                 0, 0, 0]
+
     def __init__(self, *args, **kwargs):
         super(TicTacToeGrid, self).__init__(*args, **kwargs)
         for column in range(3):

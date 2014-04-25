@@ -35,7 +35,8 @@ class TicTacToeGrid(GridLayout):
 
         if not already_pressed:
             self.pressed_cells[list_index] = 1
-            cell.text = '[color=0000ff]X[/color]'
+            cell.text = 'X'
+            cell.background_color = (1, 0, 1, 0)
 
     def on_pressed_cells(self, instance, new_value):
         pressed_cells = new_value
@@ -71,6 +72,7 @@ class TicTacToeGrid(GridLayout):
 
         for cell in self.children:
             cell.text = ''
+            cell.background_color = (1, 1, 1, 1)
 
 
 if __name__ == "__main__":

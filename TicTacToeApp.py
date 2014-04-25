@@ -10,7 +10,7 @@ class TicTacToeCell(Button):
 
 class TicTacToeApp(App):
     def build(self):
-        return TicTacToeGrid
+        return TicTacToeGrid()
 
 
 class TicTacToeGrid(GridLayout):
@@ -18,7 +18,7 @@ class TicTacToeGrid(GridLayout):
         super(TicTacToeGrid, self).__init__(*args, **kwargs)
         for column in range(3):
             for row in range(3):
-                cell = TicTacToeCell(coordinates=[column, row])
+                cell = TicTacToeCell(coordinates=(column, row))
                 self.add_widget(cell)
 
 if __name__ == "__main__":

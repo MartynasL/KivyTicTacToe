@@ -27,7 +27,14 @@ class TicTacToeGrid(GridLayout):
                 self.add_widget(cell)
 
     def cell_pressed(self, cell):
-        pass
+        row, column = cell.coordinates
+        list_index = 3 * row + column
+        already_pressed = self.pressed_cells[list_index]
+
+        if not already_pressed:
+            self.pressed_cells[list_index] = 1
+            cell.text = 'X'
+            cell.background_colour = (1, 1, 1, 1)
 
 if __name__ == "__main__":
     TicTacToeApp().run()

@@ -8,7 +8,9 @@ class TicTacToeApp(App):
 
 
 class TicTacToeGrid(GridLayout):
-    pass
+    def __init__(self, *args, **kwargs):
+        super(TicTacToeGrid, self).__init__(*args, **kwargs)
+
 
 if __name__ == "__main__":
     TicTacToeApp().run()

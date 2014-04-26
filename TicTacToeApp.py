@@ -75,11 +75,12 @@ class TicTacToeGrid(GridLayout):
         elif result == 0:
             winner = 'It''s a draw'
 
-        popup = Popup(title='End of the game',
-                      content=Label(text=winner),
-                      size_hint=(0.5, 0.75))
-        popup.bind(on_dismiss=self.reset)
-        popup.open()
+        if result != None:
+            popup = Popup(title='End of the game',
+                          content=Label(text=winner),
+                          size_hint=(0.5, 0.75))
+            popup.bind(on_dismiss=self.reset)
+            popup.open()
 
     def reset(self, *args):
         self.pressed_cells = [0, 0, 0,

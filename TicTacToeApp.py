@@ -87,7 +87,7 @@ class TicTacToeGrid(GridLayout):
     def cpu_move(self, board):
         is_win = self.win(board)
         if 0 not in board or is_win:
-            return self.win(board)
+            return is_win
         scores = []
         moves = []
 
@@ -101,8 +101,9 @@ class TicTacToeGrid(GridLayout):
                 new_board[i] = active_player
                 scores.append(self.cpu_move(new_board))
                 moves.append(i)
+                new_board[i] = 0
 
-        if active_player == -1:
+        if active_player == 1:
             max_score_index = scores.index(max(scores))
             self.best_cpu_move = moves[max_score_index]
             return scores[max_score_index]

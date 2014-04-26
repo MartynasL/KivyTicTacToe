@@ -93,11 +93,9 @@ class TicTacToeGrid(GridLayout):
             self.active_player = 1
 
         new_board = board[:]
-        i = 0
-        for cell in new_board:
+        for i, cell in enumerate(new_board):
             if cell == 0:
-                i += 1
-                cell = self.active_player
+                new_board[i] = self.active_player
                 scores.append(self.cpu_move(new_board))
                 moves.append(i)
 

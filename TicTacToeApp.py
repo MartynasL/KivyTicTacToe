@@ -41,8 +41,12 @@ class TicTacToeGrid(GridLayout):
             cell.background_color = (1, 0, 1, 0)
             self.cpu_move(self.pressed_cells)
             self.pressed_cells[self.best_cpu_move] = -1
-            self.children[self.best_cpu_move].text = 'O'
-            self.children[self.best_cpu_move].background_color = (0, 1, 1, 0)
+            column = self.best_cpu_move % 3
+            row = self.best_cpu_move / 3
+            for child in self.children:
+                if child.coordinates == [row, column]:
+                    child.text = 'O'
+                    child.background_color = (2, 0, 2, 0)
 
 
     def win(self, board):

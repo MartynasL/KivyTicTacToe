@@ -3,7 +3,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
-from kivy.properties import ListProperty
+from kivy.properties import ListProperty, NumericProperty
 
 
 class TicTacToeCell(Button):
@@ -19,6 +19,8 @@ class TicTacToeGrid(GridLayout):
     pressed_cells = ListProperty([0, 0, 0,
                                   0, 0, 0,
                                   0, 0, 0])
+    active_player = NumericProperty(1)
+    best_cpu_move = None
 
     def __init__(self, *args, **kwargs):
         super(TicTacToeGrid, self).__init__(*args, **kwargs)
@@ -37,6 +39,11 @@ class TicTacToeGrid(GridLayout):
             self.pressed_cells[list_index] = 1
             cell.text = 'X'
             cell.background_color = (1, 0, 1, 0)
+            self.cpu_move(self.pressed_cells)
+            self.pressed_cells[self.best_cpu_move] = -1
+            self.children[self.best_cpu_move].text = 'O'
+            self.children[self.best_cpu_move].background_color = (0, 1, 1, 0)
+
 
     def win(self, board):
         sums = [sum(board[0:3]),  # Rows
@@ -73,6 +80,29 @@ class TicTacToeGrid(GridLayout):
         for cell in self.children:
             cell.text = ''
             cell.background_color = (1, 1, 1, 1)
+
+    def cpu_move(self, board):
+        if 0 not in board:
+            return self.win(board)
+        scores = []
+        moves = []
+
+        for cell in board:
+            if cell == 0:
+                new_board = board
+                list_index = board.index(cell)
+                new_board[list_index] = self.active_player
+                scores.append(self.cpu_move(new_board))
+                moves.append(list_index)
+
+        if self.active_player == -1:
+            max_score_index = scores.index(max(scores))
+            self.best_cpu_move = moves[max_score_index]
+            return scores[max_score_index]
+        else:
+            min_score_index = scores.index(min(scores))
+            self.best_cpu_move = [min_score_index]
+            return scores[min_score_index]
 
 
 if __name__ == "__main__":

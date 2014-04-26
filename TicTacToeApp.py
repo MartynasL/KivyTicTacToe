@@ -19,7 +19,6 @@ class TicTacToeGrid(GridLayout):
     pressed_cells = ListProperty([0, 0, 0,
                                   0, 0, 0,
                                   0, 0, 0])
-    active_player = 1
     best_cpu_move = None
 
     def __init__(self, *args, **kwargs):
@@ -39,7 +38,7 @@ class TicTacToeGrid(GridLayout):
             self.pressed_cells[list_index] = 1
             cell.text = 'X'
             cell.background_color = (1, 0, 1, 0)
-            self.cpu_move(self.pressed_cells)
+            self.cpu_move(self.pressed_cells, -1)
             self.pressed_cells[self.best_cpu_move] = -1
             column = self.best_cpu_move % 3
             row = self.best_cpu_move / 3
@@ -85,25 +84,20 @@ class TicTacToeGrid(GridLayout):
             cell.text = ''
             cell.background_color = (1, 1, 1, 1)
 
-    def cpu_move(self, board):
+    def cpu_move(self, board, active_player):
         if 0 not in board:
             return self.win(board)
         scores = []
         moves = []
 
-        if self.active_player == 1:
-            self.active_player = -1
-        else:
-            self.active_player = 1
-
         new_board = board[:]
         for i, cell in enumerate(new_board):
             if cell == 0:
-                new_board[i] = self.active_player
-                scores.append(self.cpu_move(new_board))
+                new_board[i] = active_player
+                scores.append(self.cpu_move(new_board, active_player*-1))
                 moves.append(i)
 
-        if self.active_player == -1:
+        if active_player == -1:
             max_score_index = scores.index(max(scores))
             self.best_cpu_move = moves[max_score_index]
             return scores[max_score_index]

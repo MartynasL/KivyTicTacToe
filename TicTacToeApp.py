@@ -38,29 +38,29 @@ class TicTacToeGrid(GridLayout):
             cell.text = 'X'
             cell.background_color = (1, 0, 1, 0)
 
+    def win(self, board):
+        sums = [sum(board[0:3]),  # Rows
+                sum(board[3:6]),
+                sum(board[6:9]),
+                sum(board[0::3]),  # Columns
+                sum(board[1::3]),
+                sum(board[2::3]),
+                sum(board[::4]),  # Diagonals
+                sum(board[2:-2:2])]
+
+        if 3 in sums:
+            return 10
+        elif -3 in sums:
+            return -10
+        elif 0 not in board:
+            return 0
+
     def on_pressed_cells(self, instance, new_value):
         pressed_cells = new_value
 
-        sums = [sum(pressed_cells[0:3]),  # Rows
-                sum(pressed_cells[3:6]),
-                sum(pressed_cells[6:9]),
-                sum(pressed_cells[0::3]),  # Columns
-                sum(pressed_cells[1::3]),
-                sum(pressed_cells[2::3]),
-                sum(pressed_cells[::4]),  # Diagonals
-                sum(pressed_cells[2:-2:2])]
-
-        win = None
-        if 3 in sums:
-            win = 'You win'
-        elif -3 in sums:
-            win = 'You lose'
-        elif 0 not in pressed_cells:
-            win = 'It''s a draw'
-
-        if win:
+        if self.win(pressed_cells) == 10:
             popup = Popup(title='End of the game',
-                          content=Label(text=win),
+                          content=Label(text='You win'),
                           size_hint=(0.5, 0.75))
             popup.bind(on_dismiss=self.reset)
             popup.open()

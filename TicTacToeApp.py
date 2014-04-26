@@ -101,7 +101,7 @@ class TicTacToeGrid(GridLayout):
             return scores[max_score_index]
         else:
             min_score_index = scores.index(min(scores))
-            self.best_cpu_move = [min_score_index]
+            self.best_cpu_move = moves[min_score_index]
             return scores[min_score_index]
 
 

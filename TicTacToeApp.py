@@ -3,7 +3,7 @@ from kivy.uix.gridlayout import GridLayout
 from kivy.uix.button import Button
 from kivy.uix.label import Label
 from kivy.uix.popup import Popup
-from kivy.properties import ListProperty, NumericProperty
+from kivy.properties import ListProperty
 
 
 class TicTacToeCell(Button):
@@ -19,7 +19,7 @@ class TicTacToeGrid(GridLayout):
     pressed_cells = ListProperty([0, 0, 0,
                                   0, 0, 0,
                                   0, 0, 0])
-    active_player = NumericProperty(1)
+    active_player = 1
     best_cpu_move = None
 
     def __init__(self, *args, **kwargs):
@@ -87,13 +87,19 @@ class TicTacToeGrid(GridLayout):
         scores = []
         moves = []
 
-        for cell in board:
+        if self.active_player == 1:
+            self.active_player = -1
+        else:
+            self.active_player = 1
+
+        new_board = board[:]
+        i = 0
+        for cell in new_board:
             if cell == 0:
-                new_board = board[:]
-                list_index = board.index(cell)
-                new_board[list_index] = self.active_player
+                i += 1
+                cell = self.active_player
                 scores.append(self.cpu_move(new_board))
-                moves.append(list_index)
+                moves.append(i)
 
         if self.active_player == -1:
             max_score_index = scores.index(max(scores))

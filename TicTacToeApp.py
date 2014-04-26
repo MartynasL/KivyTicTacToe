@@ -37,7 +37,7 @@ class TicTacToeGrid(GridLayout):
         if not already_pressed:
             self.pressed_cells[list_index] = 1
             cell.text = 'X'
-            cell.background_color = (1, 0, 1, 0)
+            cell.background_color = (255, 255, 0, 50)
             self.cpu_move(self.pressed_cells)
             self.pressed_cells[self.best_cpu_move] = -1
             column = self.best_cpu_move % 3
@@ -45,7 +45,7 @@ class TicTacToeGrid(GridLayout):
             for child in self.children:
                 if child.coordinates == [row, column]:
                     child.text = 'O'
-                    child.background_color = (2, 0, 2, 0)
+                    child.background_color = (255, 0, 0, 50)
 
     def win(self, board):
         sums = [sum(board[0:3]),  # Rows

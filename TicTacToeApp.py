@@ -65,12 +65,12 @@ class TicTacToeGrid(GridLayout):
     def on_pressed_cells(self, instance, new_value):
         pressed_cells = new_value
 
-        if self.win(pressed_cells) == 10:
-            popup = Popup(title='End of the game',
-                          content=Label(text='You win'),
-                          size_hint=(0.5, 0.75))
-            popup.bind(on_dismiss=self.reset)
-            popup.open()
+        #if self.win(pressed_cells) == 10:
+        #    popup = Popup(title='End of the game',
+        #                  content=Label(text='You win'),
+        #                  size_hint=(0.5, 0.75))
+        #    popup.bind(on_dismiss=self.reset)
+        #    popup.open()
 
     def reset(self, *args):
         self.pressed_cells = [0, 0, 0,
@@ -89,7 +89,7 @@ class TicTacToeGrid(GridLayout):
 
         for cell in board:
             if cell == 0:
-                new_board = board
+                new_board = board[:]
                 list_index = board.index(cell)
                 new_board[list_index] = self.active_player
                 scores.append(self.cpu_move(new_board))

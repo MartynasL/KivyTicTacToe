@@ -1,0 +1,3 @@
+title=TicTacToe
+author=Martynas Lyčius
+orientation=portrait
